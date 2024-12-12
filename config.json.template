@@ -1,0 +1,12 @@
+{
+  "twitch": {
+    "loginChannel": "",
+    "accessToken": "oauth:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+  },
+  "3tene": {
+    "title": "3teneFREE"
+  },
+  "target": {
+    "id": ""
+  }
+}

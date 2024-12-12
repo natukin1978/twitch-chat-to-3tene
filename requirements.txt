@@ -1,0 +1,3 @@
+twitchio
+emoji
+pywinauto
