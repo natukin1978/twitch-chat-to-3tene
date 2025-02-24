@@ -1,5 +1,7 @@
 import asyncio
 import emoji
+import os
+import sys
 
 import twitchio
 from twitchio.ext import commands
@@ -7,9 +9,13 @@ from twitchio.ext import commands
 from pywinauto import application
 
 import global_value as g
-from config_helper import readConfig
 
-g.config = readConfig()
+g.app_name = "twitch_chat_to_3tene"
+g.base_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
+
+from config_helper import read_config
+
+g.config = read_config()
 
 # a = anger  (怒り)
 # f = fun    (楽しい)
@@ -17,7 +23,7 @@ g.config = readConfig()
 # s = sorrow (悲しい)
 # o = open-mouth (驚き)
 # c = close-eye (目を閉じる)
-dict_emotion = readConfig("emotion.json")
+dict_emotion = read_config("emotion.json")
 
 
 def send_key_to_3tene(key_code: str):
