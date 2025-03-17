@@ -1,12 +1,10 @@
 import asyncio
-import emoji
 import os
 import sys
 
+import emoji
 import twitchio
 from twitchio.ext import commands
-
-from pywinauto import application
 
 import global_value as g
 
@@ -14,6 +12,7 @@ g.app_name = "twitch_chat_to_3tene"
 g.base_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
 
 from config_helper import read_config
+from emote_manager import EmoteManager
 
 g.config = read_config()
 
@@ -23,15 +22,12 @@ g.config = read_config()
 # s = sorrow (悲しい)
 # o = open-mouth (驚き)
 # c = close-eye (目を閉じる)
+# n = 標準
+
+# d = 机を叩く
+# t = スピーチ8
+# i = 標準
 dict_emotion = read_config("emotion.json")
-
-
-def send_key_to_3tene(key_code: str):
-    if not key_code:
-        return
-    app = application.Application().connect(title=g.config["3tene"]["title"])
-    tw = app.top_window()
-    tw.send_keystrokes(key_code)
 
 
 class Bot(commands.Bot):
@@ -41,6 +37,7 @@ class Bot(commands.Bot):
             prefix="!",
             initial_channels=[g.config["twitch"]["loginChannel"]],
         )
+        self.em = EmoteManager()
 
     async def event_message(self, msg: twitchio.Message):
         if msg.echo:
@@ -63,7 +60,7 @@ class Bot(commands.Bot):
                 key_code = v
                 break
 
-        send_key_to_3tene(key_code)
+        await self.em.do_emote(key_code)
 
 
 async def main():
