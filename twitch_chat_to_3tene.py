@@ -16,19 +16,6 @@ from emote_manager import EmoteManager
 
 g.config = read_config()
 
-# a = anger  (怒り)
-# f = fun    (楽しい)
-# j = joy    (喜び)
-# s = sorrow (悲しい)
-# o = open-mouth (驚き)
-# c = close-eye (目を閉じる)
-# n = 標準
-
-# d = 机を叩く
-# t = スピーチ8
-# i = 標準
-dict_emotion = read_config("emotion.json")
-
 
 class Bot(commands.Bot):
     def __init__(self):
@@ -54,13 +41,7 @@ class Bot(commands.Bot):
         text = msg.content
         decode_emoji = emoji.demojize(text, language="en")
 
-        key_code = None
-        for k, v in dict_emotion.items():
-            if k in decode_emoji:
-                key_code = v
-                break
-
-        await self.em.do_emote(key_code)
+        await self.em.do_emote(decode_emoji)
 
 
 async def main():

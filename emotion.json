@@ -1,30 +1,55 @@
 {
-  "angry": "a",
-  "enraged": "a",
-  "explod": "a",
-  "symbols_on_mouth": "a",
-  "open_mouth": "o",
-  "(*^▽^*)": "j",
-  "(≧∇≦)": "j",
-  "grin": "j",
-  "joy": "j",
-  "(o˘◡˘o)": "f",
-  "(o^^o)": "f",
-  "kiss": "f",
-  "party": "f",
-  "smil": "f",
-  "crossed": "s",
-  "cry": "s",
-  "disappoint": "s",
-  "fear": "s",
-  "frown": "s",
-  "plead": "s",
-  "scream": "s",
-  "tear": "s",
-  "vomit": "s",
-  "woozy": "s",
-  "worri": "s",
-  "close": "c",
-  "sleep": "c",
-  "": "n"
+  "face_list": {
+    "dancing": "d",
+    "angry": "a",
+    "enraged": "a",
+    "explod": "a",
+    "symbols_on_mouth": "a",
+    "open_mouth": "o",
+    "(*^▽^*)": "j",
+    "(≧∇≦)": "j",
+    "grin": "j",
+    "joy": "j",
+    "(o˘◡˘o)": "f",
+    "(o^^o)": "f",
+    "kiss": "f",
+    "party": "f",
+    "smil": "f",
+    "crossed": "s",
+    "cry": "s",
+    "disappoint": "s",
+    "fear": "s",
+    "frown": "s",
+    "plead": "s",
+    "scream": "s",
+    "tear": "s",
+    "vomit": "s",
+    "woozy": "s",
+    "worri": "s",
+    "close": "c",
+    "sleep": "c",
+    "": "n"
+  },
+  "addMotions": {
+    "a": {
+      "keyCode": "b",
+      "endSec": 3
+    },
+    "d": {
+      "keyCode": "f",
+      "endSec": 90
+    },
+    "j": {
+      "keyCode": "h",
+      "endSec": 4
+    },
+    "": {
+      "keyCode": "t",
+      "endSec": 5
+    }
+  },
+  "resets": [
+    "n",
+    "i"
+  ]
 }
