@@ -26,8 +26,8 @@ jobs:
       - name: Build executable with PyInstaller
         run: pyinstaller twitch_chat_to_3tene.py --name TwitchChatTo3tene.exe
 
-      - name: Create config.json
-        run: copy config.json.template config.json
+      - name: Rename config.json
+        run: ren config.json.template config.json
 
       - name: Create release archive
         run: |
