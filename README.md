@@ -113,7 +113,6 @@ TwitchChatTo3tene.exe
 ナツキソ
 
 - X(旧Twitter): [@natukin1978](https://x.com/natukin1978)
-- Mastodon: [@natukin1978](https://mstdn.jp/@natukin1978)
 - Threads: [@natukin1978](https://www.threads.net/@natukin1978)
 - GitHub: [@natukin1978](https://github.com/natukin1978)
 - Mail: natukin1978@hotmail.com
