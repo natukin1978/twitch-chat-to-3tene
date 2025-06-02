@@ -5,20 +5,6 @@ from pywinauto import application
 import global_value as g
 from config_helper import read_config
 
-# a = anger  (怒り)
-# f = fun    (楽しい)
-# j = joy    (喜び)
-# s = sorrow (悲しい)
-# o = open-mouth (驚き)
-# c = close-eye (目を閉じる)
-# n = 標準
-
-# b = 机を叩く
-# d = ダンス2
-# t = スピーチ8
-# h = 嬉しい
-# i = 標準
-
 
 class EmoteManager:
     def __init__(self):
