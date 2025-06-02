@@ -33,7 +33,7 @@ jobs:
         run: |
           $tagName = "${{ github.ref_name }}"
           $zipName = "TwitchChatTo3tene-$tagName.zip"
-          Compress-Archive -Path dist\TwitchChatTo3tene.exe\TwitchChatTo3tene.exe, dist\TwitchChatTo3tene.exe\_internal, LICENSE, README.md, config.json emotion.json -DestinationPath $zipName
+          Compress-Archive -Path dist\TwitchChatTo3tene.exe\TwitchChatTo3tene.exe, dist\TwitchChatTo3tene.exe\_internal, LICENSE, README.md, config.json, emotion.json -DestinationPath $zipName
 
       - name: Upload release archive
         uses: actions/upload-release-asset@v1
