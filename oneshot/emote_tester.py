@@ -17,13 +17,18 @@ g.base_dir = os.path.abspath(os.path.join(os.path.dirname(sys.argv[0]), os.pardi
 from config_helper import read_config
 from emote_manager import EmoteManager
 
+args = len(sys.argv)
+if args <= 1:
+    exit(1)
+text = sys.argv[1]
+
 g.config = read_config()
 
 
-async def main():
+async def main(text: str):
     em = EmoteManager()
-    await em.do_emote("dancing")
+    await em.do_emote(text)
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    asyncio.run(main(text))
