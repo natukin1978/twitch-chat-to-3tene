@@ -35,6 +35,10 @@
       "keyCode": "b",
       "endSec": 3
     },
+    "c": {
+      "keyCode": "m",
+      "endSec": 0
+    },
     "d": {
       "keyCode": "f",
       "endSec": 90
