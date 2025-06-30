@@ -13,9 +13,6 @@ class EmoteManager:
         self.emotion = None
 
     async def do_emote_motion(self, key_code: str):
-        if self.active_emote:
-            return
-
         await asyncio.sleep(1)
 
         add_motions = self.emotion["addMotions"]
@@ -29,15 +26,22 @@ class EmoteManager:
         await self.do_emote_detail({key_code, add_key_code}, add_end_sec)
 
     async def do_emote(self, decode_emoji: str):
-        self.emotion = read_config("emotion.json")
-        face_list = self.emotion["face_list"]
-        key_code = None
-        for k, v in face_list.items():
-            if k in decode_emoji:
-                key_code = v
-                break
+        if self.active_emote:
+            return
 
-        await self.do_emote_motion(key_code)
+        try:
+            self.active_emote = key_code
+            self.emotion = read_config("emotion.json")
+            face_list = self.emotion["face_list"]
+            key_code = None
+            for k, v in face_list.items():
+                if k in decode_emoji:
+                    key_code = v
+                    break
+
+            await self.do_emote_motion(key_code)
+        finally:
+            self.active_emote = None
 
     def send_key_to_3tene(self, key_code: str):
         if not key_code:
@@ -50,7 +54,6 @@ class EmoteManager:
         await asyncio.sleep(end_sec)
         for reset in self.emotion["resets"]:
             self.send_key_to_3tene(reset)
-        self.active_emote = None
 
     async def do_emote_detail(self, key_codes: set[str], end_sec: int):
         for key_code in key_codes:
