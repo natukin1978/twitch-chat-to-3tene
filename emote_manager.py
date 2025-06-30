@@ -55,4 +55,5 @@ class EmoteManager:
     async def do_emote_detail(self, key_codes: set[str], end_sec: int):
         for key_code in key_codes:
             self.send_key_to_3tene(key_code)
-        await self.do_emote_reset(end_sec)
+        if end_sec > 0:
+            await self.do_emote_reset(end_sec)
