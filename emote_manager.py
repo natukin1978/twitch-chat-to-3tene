@@ -9,7 +9,7 @@ from config_helper import read_config
 class EmoteManager:
     def __init__(self):
         self.send_key_title = g.config["3tene"]["title"]
-        self.active_emote = None
+        self.active_emote = False
         self.emotion = None
 
     async def do_emote_motion(self, key_code: str):
@@ -30,7 +30,7 @@ class EmoteManager:
             return
 
         try:
-            self.active_emote = key_code
+            self.active_emote = True
             self.emotion = read_config("emotion.json")
             face_list = self.emotion["face_list"]
             key_code = None
@@ -41,7 +41,7 @@ class EmoteManager:
 
             await self.do_emote_motion(key_code)
         finally:
-            self.active_emote = None
+            self.active_emote = False
 
     def send_key_to_3tene(self, key_code: str):
         if not key_code:
