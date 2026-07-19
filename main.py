@@ -1,53 +1,49 @@
 import asyncio
+import logging
 import os
 import sys
 
-import emoji
-import twitchio
-from twitchio.ext import commands
+import asqlite
 
 import global_value as g
+from config_helper import read_config
+from logging_setup import setup_app_logging
 
 g.app_name = "twitch_chat_to_3tene"
 g.base_dir = os.path.dirname(os.path.abspath(sys.argv[0]))
-
-from config_helper import read_config
-from emote_manager import EmoteManager
-
 g.config = read_config()
 
+# ロガーの設定
+setup_app_logging(g.config["logLevel"], log_file_path=f"{g.app_name}.log")
+logger = logging.getLogger(__name__)
 
-class Bot(commands.Bot):
-    def __init__(self):
-        super().__init__(
-            token=g.config["twitch"]["accessToken"],
-            prefix="!",
-            initial_channels=[g.config["twitch"]["loginChannel"]],
-        )
-        self.em = EmoteManager()
-
-    async def event_message(self, msg: twitchio.Message):
-        if msg.echo:
-            return
-
-        if msg.content.startswith("!"):
-            await self.handle_commands(msg)
-            return
-
-        id = msg.author.name
-        if id != g.config["target"]["id"]:
-            return
-
-        text = msg.content
-        decode_emoji = emoji.demojize(text, language="en")
-
-        await self.em.do_emote(decode_emoji)
+from twitch_bot import (
+    TwitchBot,
+    setup_database,
+)
 
 
 async def main():
-    bot = Bot()
-    await bot.start()
+    # conduit_id の警告を抑止したい…
+    logging.getLogger("twitchio.client").setLevel(logging.ERROR)
+    # StarletteAdapter の警告を抑止したい…
+    logging.getLogger("twitchio.web.aio_adapter").setLevel(logging.ERROR)
+
+    bot = None
+    async with asqlite.create_pool("tokens.db") as tdb:
+        tokens, subs = await setup_database(tdb)
+
+        bot = TwitchBot(token_database=tdb, subs=subs)
+        for pair in tokens:
+            await bot.add_token(*pair)
+
+        await bot.start(load_tokens=False, with_adapter=False)
 
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        pass
+    finally:
+        pass
