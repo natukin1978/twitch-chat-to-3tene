@@ -1,12 +1,18 @@
 {
+  "logLevel": "WARNING",
   "twitch": {
-    "loginChannel": "",
-    "accessToken": "oauth:XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+    "clientId": "",
+    "clientSecret": "",
+    "bot": {
+      "name": "",
+      "id": ""
+    },
+    "owner": {
+      "name": "",
+      "id": ""
+    }
   },
   "3tene": {
     "title": "3teneFREE"
-  },
-  "target": {
-    "id": ""
   }
 }
