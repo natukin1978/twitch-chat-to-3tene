@@ -1,0 +1,96 @@
+{
+  "type": "object",
+  "title": "基本設定",
+  "properties": {
+    "logLevel": {
+      "type": "string",
+      "title": "ログ出力レベル",
+      "description": "コンソールに出力する情報の詳細度。通常は WARNING を推奨。",
+      "propertyOrder": 1,
+      "enum": [
+        "DEBUG",
+        "INFO",
+        "WARNING",
+        "ERROR"
+      ]
+    },
+    "twitch": {
+      "type": "object",
+      "title": "Twitch 連携設定",
+      "description": "Twitch APIおよびボット/配信チャンネルのアカウント情報。",
+      "propertyOrder": 2,
+      "properties": {
+        "clientId": {
+          "type": "string",
+          "title": "クライアントID",
+          "propertyOrder": 1
+        },
+        "clientSecret": {
+          "type": "string",
+          "title": "シークレットキー",
+          "format": "password",
+          "propertyOrder": 2
+        },
+        "bot": {
+          "type": "object",
+          "title": "ボットアカウント",
+          "propertyOrder": 3,
+          "properties": {
+            "name": {
+              "type": "string",
+              "title": "ボット名",
+              "propertyOrder": 1
+            },
+            "id": {
+              "type": "string",
+              "title": "ボットID",
+              "readOnly": true,
+              "propertyOrder": 2
+            }
+          }
+        },
+        "owner": {
+          "type": "object",
+          "title": "配信チャンネルアカウント",
+          "propertyOrder": 4,
+          "properties": {
+            "name": {
+              "type": "string",
+              "title": "配信チャンネル名",
+              "propertyOrder": 1
+            },
+            "id": {
+              "type": "string",
+              "title": "配信チャンネルID",
+              "readOnly": true,
+              "propertyOrder": 2
+            }
+          }
+        },
+        "getIds": {
+          "format": "button",
+          "options": {
+            "button": {
+              "text": "ボットIDと配信チャンネルIDを取得",
+              "icon": "search",
+              "action": "getIds",
+              "validated": true
+            }
+          }
+        }
+      }
+    },
+    "3tene": {
+      "type": "object",
+      "title": "3tene設定",
+      "propertyOrder": 3,
+      "properties": {
+        "title": {
+          "type": "string",
+          "title": "操作対象のウィンドウタイトル",
+          "propertyOrder": 1
+        }
+      }
+    }
+  }
+}
