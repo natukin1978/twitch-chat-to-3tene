@@ -1,5 +1,6 @@
 import logging
 import re
+import time
 from typing import TYPE_CHECKING
 
 import asqlite
@@ -90,6 +91,8 @@ class MyComponent(commands.Component):
         # Passing args is not required...
         # We pass bot here as an example...
         self.bot = bot
+        # 処理済みメッセージIDを保持する辞書（重複呼び出しガード用）
+        self.processed_message_ids: dict[str, float] = {}
         self.em = EmoteManager()
 
     # An example of listening to an event
@@ -99,6 +102,25 @@ class MyComponent(commands.Component):
         await self.event_base_message(payload)
 
     async def event_base_message(self, payload: twitchio.ChatMessage) -> None:
+        # 重複メッセージのガード処理
+        current_time = time.time()
+        msg_id = getattr(payload, "id", None)
+
+        if msg_id:
+            if msg_id in self.processed_message_ids:
+                logger.debug("Duplicate message received (ID: %s), skipping.", msg_id)
+                return
+
+            self.processed_message_ids[msg_id] = current_time
+
+            # 保持後 10 秒経過した古いやつはメモリ解放のために削除
+            self.processed_message_ids = {
+                m_id: t
+                for m_id, t in self.processed_message_ids.items()
+                if current_time - t < 10.0
+            }
+
+        # BOT自身のみ処理する
         if payload.chatter.id != self.bot.bot_id:
             return
 
