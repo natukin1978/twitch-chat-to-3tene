@@ -62,6 +62,9 @@
             const schema = {{ schema | tojson }};
             const startVal = {{ config | tojson }};
 
+            const callbackUrlBotBase = {{ callback_url_bot_base | tojson }};
+            const callbackUrlOwnerBase = {{ callback_url_owner_base | tojson }};
+
             const editor = new JSONEditor(document.getElementById('editor_holder'), {
                 schema: schema,
                 startval: startVal,
@@ -79,8 +82,8 @@
                 const clientId = (currentVal && currentVal.twitch && currentVal.twitch.clientId) ? currentVal.twitch.clientId : '';
 
                 // ベースURLの末尾に &client_id=... を付加
-                const botUrl = `{{CALLBACK_URL_BOT}}&client_id=${encodeURIComponent(clientId)}`;
-                const ownerUrl = `{{CALLBACK_URL_OWNER}}&client_id=${encodeURIComponent(clientId)}`;
+                const botUrl = `${callbackUrlBotBase}&client_id=${encodeURIComponent(clientId)}`;
+                const ownerUrl = `${callbackUrlOwnerBase}&client_id=${encodeURIComponent(clientId)}`;
 
                 // HTML要素の更新
                 const botLink = document.getElementById('bot_auth_link');
